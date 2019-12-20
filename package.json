@@ -1,0 +1,32 @@
+{
+    "name": "webgpu-types",
+    "version": "1.0.0",
+    "description": "An automatically generated TypeScript definition file for WebGPU.",
+    "main": "dist/webgpu.d.ts",
+    "scripts": {
+        "start": "npm i & npm run build",
+        "build": "ts-node src/main.ts"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/alaingalvan/webgpu-types.git"
+    },
+    "keywords": [
+        "webgl",
+        "example",
+        "seed",
+        "repo"
+    ],
+    "author": "Alain Galvan",
+    "license": "Unlicense",
+    "bugs": {
+        "url": "https://github.com/alaingalvan/webgpu-types/issues"
+    },
+    "homepage": "https://github.com/alaingalvan/webgpu-types#readme",
+    "dependencies": {
+        "@types/node": "^12.12.21",
+        "ts-node": "^8.5.4",
+        "typescript": "^3.7.3",
+        "webidl2": "^23.10.1"
+    }
+}
