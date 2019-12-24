@@ -1,35 +1,60 @@
-# WebGPU Types
+![Cover Art](https://alain.xyz/blog/raw-webgl/assets/cover.jpg)
 
-> ⚠️ This is currently a work in progress, just need to convert WebIDL to TypeScript Definitions. ⚠️
+# 🔺 WebGPU Seed
 
-An automatically generated TypeScript definition file for WebGPU.
+[![License][license-img]][license-url]
+[![Unit Tests][travis-img]][travis-url]
+[![Dependency Status][david-img]][david-url]
+[![devDependency Status][david-dev-img]][david-dev-url]
 
-## Usage
+A WebGPU repo you can use to get started with your own renderer.
 
-```bash
-npm i -D https://github.com/alaingalvan/webgpu-types.git
-```
+## Setup
 
-## Development
+First install:
 
-Be sure to have:
+- [Git](https://git-scm.com/)
 
-- [Git](https://git-scm.com/downloads)
+- [Node.js](https://nodejs.org/en/)
 
-- Any terminal such as [VS Code's Integrated Terminal](https://code.visualstudio.com/docs/editor/integrated-terminal)
+- A Text Editor such as [Visual Studio Code](https://code.visualstudio.com/).
 
-And type the following in any folder:
+Then type the following in any terminal your such as [VS Code's Integrated Terminal](https://code.visualstudio.com/docs/editor/integrated-terminal).
 
 ```bash
 # 🐑 Clone the repo
-git clone https://github.com/alaingalvan/webgpu-types.git --recurse-submodules
+git clone https://github.com/alaingalvan/webgpu-seed
 
 # 💿 go inside the folder
-cd webgpu-types
+cd webgpu-seed
 
-# 👯 If you forget to `recurse-submodules` you can always run:
-git submodule update --init
-
-# 🔨 Build your type definition
+# 🔨 Start building the project
 npm start
 ```
+
+> Refer to [this blog post on designing web libraries and apps](https://alain.xyz/blog/designing-a-web-app) for more details on Node.js, packages, etc.
+
+## Project Layout
+
+As your project becomes more complex, you'll want to separate files and organize your application to something more akin to a game or renderer, check out this post on [game engine architecture](https://alain.xyz/blog/game-engine-architecture) and this one on [real time renderer architecture](https://alain.xyz/blog/realtime-renderer-architectures) for more details.
+
+```bash
+├─ 📂 node_modules/   # 👶 Dependencies
+│  ├─ 📁 gl-matrix      # ➕ Linear Algebra
+│  └─ 📁 ...            # 🕚 Other Dependencies (TypeScript, Webpack, etc.)
+├─ 📂 src/            # 🌟 Source Files
+│  └─ 📄 renderer.ts    # 🔺 Triangle Renderer
+├─ 📄 .gitignore      # 👁️ Ignore certain files in git repo
+├─ 📄 package.json    # 📦 Node Package File
+├─ 📄 license.md      # ⚖️ Your License (Unlicense)
+└─ 📃readme.md        # 📖 Read Me!
+```
+
+[license-img]: https://img.shields.io/:license-unlicense-blue.svg?style=flat-square
+[license-url]: https://unlicense.org/
+[david-url]: https://david-dm.org/alaingalvan/webgpu-seed
+[david-img]: https://david-dm.org/alaingalvan/webgpu-seed/status.svg?style=flat-square
+[david-dev-url]: https://david-dm.org/alaingalvan/webgpu-seed#info=devDependencies
+[david-dev-img]: https://david-dm.org/alaingalvan/webgpu-seed/dev-status.svg?style=flat-square
+[travis-img]: https://img.shields.io/travis/alaingalvan/webgpu-seed.svg?style=flat-square
+[travis-url]:https://travis-ci.org/alaingalvan/webgpu-seed

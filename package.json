@@ -1,32 +1,34 @@
 {
-    "name": "webgpu-types",
-    "version": "1.0.0",
-    "description": "An automatically generated TypeScript definition file for WebGPU.",
-    "main": "dist/webgpu.d.ts",
+    "name": "webgpu-seed",
+    "version": "0.1.0",
+    "description": "🔺 A simple hello triangle example introducing WebGPU.",
+    "main": "src/main.ts",
+    "types": "./dist/webgpu.d.ts",
     "scripts": {
-        "start": "npm i & npm run build",
-        "build": "ts-node src/main.ts"
+        "start": "npm i && npm run build",
+        "build": "tsc"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/alaingalvan/webgpu-types.git"
+        "url": "git+https://github.com/alaingalvan/webgpu-seed.git"
     },
     "keywords": [
+        "webgpu",
         "webgl",
         "example",
         "seed",
-        "repo"
+        "types",
+        "typescript"
     ],
     "author": "Alain Galvan",
     "license": "Unlicense",
     "bugs": {
-        "url": "https://github.com/alaingalvan/webgpu-types/issues"
+        "url": "https://github.com/alaingalvan/webgpu-seed/issues"
     },
-    "homepage": "https://github.com/alaingalvan/webgpu-types#readme",
-    "dependencies": {
-        "@types/node": "^12.12.21",
-        "ts-node": "^8.5.4",
-        "typescript": "^3.7.3",
-        "webidl2": "^23.10.1"
+    "homepage": "https://github.com/alaingalvan/webgpu-seed#readme",
+    "devDependencies": {
+        "@types/node": "^13.1.0",
+        "@webgpu/types": "0.0.19",
+        "typescript": "^3.7.4"
     }
 }

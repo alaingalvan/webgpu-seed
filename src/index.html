@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <title>WebGPU Hello Triangle</title>
+    <style>
+      html,
+      body,
+      canvas {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="gfx"></canvas>
+    <script type="text/javascript" src="renderer.js"></script>
+    <script type="text/javascript">
+      const canvas = document.getElementById('gfx');
+      canvas.width = canvas.height = 640;
+      const engine = new Renderer(canvas);
+      engine.start();
+    </script>
+  </body>
+</html>
