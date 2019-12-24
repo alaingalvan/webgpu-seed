@@ -1,5 +1,3 @@
-![Cover Art](https://alain.xyz/blog/raw-webgl/assets/cover.jpg)
-
 # 🔺 WebGPU Seed
 
 [![License][license-img]][license-url]
@@ -8,6 +6,8 @@
 [![devDependency Status][david-dev-img]][david-dev-url]
 
 A WebGPU repo you can use to get started with your own renderer.
+
+> Visit the [`typegen` branch](https://github.com/alaingalvan/webgpu-seed/tree/typegen) for type generation, but otherwise you should use [`@types/webgpu`](https://www.npmjs.com/package/@webgpu/types).
 
 ## Setup
 
@@ -49,6 +49,7 @@ As your project becomes more complex, you'll want to separate files and organize
 ├─ 📄 license.md      # ⚖️ Your License (Unlicense)
 └─ 📃readme.md        # 📖 Read Me!
 ```
+
 
 [license-img]: https://img.shields.io/:license-unlicense-blue.svg?style=flat-square
 [license-url]: https://unlicense.org/
