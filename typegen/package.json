@@ -1,0 +1,38 @@
+{
+    "name": "webgpu-types",
+    "version": "0.1.0",
+    "description": "🔺 An automatically generated TypeScript definition file for WebGPU.",
+    "main": "",
+    "types": "./dist/webgpu.d.ts",
+    "scripts": {
+        "start": "npm i && npm run build && prettier --single-quote --write dist/webgpu.d.ts",
+        "build": "ts-node src/main.ts",
+        "test": "tsc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/alaingalvan/webgpu-seed.git"
+    },
+    "keywords": [
+        "webgpu",
+        "webgl",
+        "example",
+        "seed",
+        "types",
+        "typescript"
+    ],
+    "author": "Alain Galvan",
+    "license": "Unlicense",
+    "bugs": {
+        "url": "https://github.com/alaingalvan/webgpu-seed/issues"
+    },
+    "homepage": "https://github.com/alaingalvan/webgpu-seed#readme",
+    "devDependencies": {
+        "@types/node": "^13.1.0",
+        "@types/webidl2": "^23.8.0",
+        "prettier": "^1.19.1",
+        "ts-node": "^8.5.4",
+        "typescript": "^3.7.4",
+        "webidl2": "^23.10.1"
+    }
+}

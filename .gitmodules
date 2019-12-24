@@ -1,0 +1,3 @@
+[submodule "typegen/external/gpuweb"]
+	path = typegen/external/gpuweb
+	url = https://github.com/gpuweb/gpuweb.git
