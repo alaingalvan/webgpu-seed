@@ -70,7 +70,6 @@ class Renderer {
 
             // 💻 Logical Device
             this.device = await this.adapter.requestDevice();
-            this.device.onuncapturederror = (e) => console.error(e);
 
             // 📦 Queue
             this.queue = this.device.defaultQueue;
@@ -88,8 +87,9 @@ class Renderer {
         let mapBuffers = (arr: Float32Array | Uint16Array, usage: number) => {
             var desc = { size: arr.byteLength, usage };
             let [ buffer, bufferMapped ] = this.device.createBufferMapped(desc);
+
             const writeArray =
-                usage === GPUBufferUsage.INDEX ? new Uint16Array(bufferMapped) : new Float32Array(bufferMapped);
+                arr instanceof Uint16Array ? new Uint16Array(bufferMapped) : new Float32Array(bufferMapped);
             writeArray.set(arr);
             buffer.unmap();
             return buffer;

@@ -43,6 +43,7 @@ As your project becomes more complex, you'll want to separate files and organize
 │  ├─ 📁 gl-matrix      # ➕ Linear Algebra
 │  └─ 📁 ...            # 🕚 Other Dependencies (TypeScript, Webpack, etc.)
 ├─ 📂 src/            # 🌟 Source Files
+│  ├─ 📄 index.html     #  📇 Main HTML file
 │  └─ 📄 renderer.ts    # 🔺 Triangle Renderer
 ├─ 📄 .gitignore      # 👁️ Ignore certain files in git repo
 ├─ 📄 package.json    # 📦 Node Package File
