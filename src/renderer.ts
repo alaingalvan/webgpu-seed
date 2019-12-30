@@ -1,16 +1,16 @@
 /// <reference path="../node_modules/@webgpu/types/index.d.ts" />
 
 // 📈 Position Vertex Buffer Data
-const positions = new Float32Array([ 
-    1.0, -1.0, 0.0, 
-    -1.0, -1.0, 0.0, 
+const positions = new Float32Array([
+    1.0, -1.0, 0.0,
+   -1.0, -1.0, 0.0,
     0.0, 1.0, 0.0
 ]);
 
 // 🎨 Color Vertex Buffer Data
-const colors = new Float32Array([ 
+const colors = new Float32Array([
     1.0, 0.0, 0.0, // 🔴
-    0.0, 1.0, 0.0, // 🟢 
+    0.0, 1.0, 0.0, // 🟢
     0.0, 0.0, 1.0  // 🔵
 ]);
 
@@ -87,7 +87,7 @@ class Renderer {
         let createBuffer = (arr: Float32Array | Uint16Array, usage: number) => {
             let desc = { size: arr.byteLength, usage };
             let [ buffer, bufferMapped ] = this.device.createBufferMapped(desc);
-``
+            ``;
             const writeArray =
                 arr instanceof Uint16Array ? new Uint16Array(bufferMapped) : new Float32Array(bufferMapped);
             writeArray.set(arr);
@@ -110,6 +110,8 @@ class Renderer {
 
         const fsmDesc: any = { code: await loadShader('triangle.frag.spv') };
         this.fragModule = this.device.createShaderModule(fsmDesc);
+
+        // ⚗️ Graphics Pipeline
 
         // 🔣 Input Assembly
         const positionAttribDesc: GPUVertexAttributeDescriptor = {
@@ -138,15 +140,18 @@ class Renderer {
             vertexBuffers: [ positionBufferDesc, colorBufferDesc ]
         };
 
-        // ⚗️ Graphics Pipeline
+        // 🌑 Depth
         const depthStencilState: GPUDepthStencilStateDescriptor = {
             depthWriteEnabled: true,
             depthCompare: 'less',
             format: 'depth24plus-stencil8'
         };
 
+        // 🦄 Uniform Data
         const pipelineLayoutDesc = { bindGroupLayouts: [] };
         const layout = this.device.createPipelineLayout(pipelineLayoutDesc);
+
+        // 🎭 Shader Stages
         const vertexStage = {
             module: this.vertModule,
             entryPoint: 'main'
@@ -155,6 +160,8 @@ class Renderer {
             module: this.fragModule,
             entryPoint: 'main'
         };
+
+        // 🌀 Color/Blend State
         const colorState: GPUColorStateDescriptor = {
             format: 'bgra8unorm',
             alphaBlend: {
@@ -170,6 +177,7 @@ class Renderer {
             writeMask: GPUColorWrite.ALL
         };
 
+        // 🟨 Rasterization
         const rasterizationState: GPURasterizationStateDescriptor = {
             frontFace: 'cw',
             cullMode: 'none'
