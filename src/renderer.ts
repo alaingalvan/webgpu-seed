@@ -15,7 +15,7 @@ const colors = new Float32Array([
 ]);
 
 // 🗄️ Index Buffer Data
-const indices = new Uint16Array([ 0, 1, 2, 1, 2, 3 ]);
+const indices = new Uint16Array([ 0, 1, 2 ]);
 
 class Renderer {
     canvas: HTMLCanvasElement;
@@ -84,10 +84,10 @@ class Renderer {
     // 🍱 Initialize resources to render triangle (buffers, shaders, pipeline)
     async initializeResources() {
         // 🔺 Buffers
-        let mapBuffers = (arr: Float32Array | Uint16Array, usage: number) => {
-            var desc = { size: arr.byteLength, usage };
+        let createBuffer = (arr: Float32Array | Uint16Array, usage: number) => {
+            let desc = { size: arr.byteLength, usage };
             let [ buffer, bufferMapped ] = this.device.createBufferMapped(desc);
-
+``
             const writeArray =
                 arr instanceof Uint16Array ? new Uint16Array(bufferMapped) : new Float32Array(bufferMapped);
             writeArray.set(arr);
@@ -95,12 +95,12 @@ class Renderer {
             return buffer;
         };
 
-        this.positionBuffer = mapBuffers(positions, GPUBufferUsage.VERTEX);
-        this.colorBuffer = mapBuffers(colors, GPUBufferUsage.VERTEX);
-        this.indexBuffer = mapBuffers(indices, GPUBufferUsage.INDEX);
+        this.positionBuffer = createBuffer(positions, GPUBufferUsage.VERTEX);
+        this.colorBuffer = createBuffer(colors, GPUBufferUsage.VERTEX);
+        this.indexBuffer = createBuffer(indices, GPUBufferUsage.INDEX);
 
         // 🖍️ Shaders
-        var loadShader = (shaderPath: string) =>
+        let loadShader = (shaderPath: string) =>
             fetch(new Request(shaderPath), { method: 'GET', mode: 'cors' }).then((res) =>
                 res.arrayBuffer().then((arr) => new Uint32Array(arr))
             );

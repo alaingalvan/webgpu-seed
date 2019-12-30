@@ -7,6 +7,8 @@
 
 A WebGPU repo you can use to get started with your own renderer.
 
+- [🔳 Codepen Example](https://codepen.io/alaingalvan/pen/GRgvLGw)
+
 > Visit the [`typegen` branch](https://github.com/alaingalvan/webgpu-seed/tree/typegen) for type generation, but otherwise you should use [`@types/webgpu`](https://www.npmjs.com/package/@webgpu/types).
 
 ## Setup
