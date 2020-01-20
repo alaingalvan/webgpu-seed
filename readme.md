@@ -1,3 +1,5 @@
+![Cover Art](https://alain.xyz/blog/raw-webgpu/assets/cover.jpg)
+
 # 🔺 WebGPU Seed
 
 [![License][license-img]][license-url]
@@ -8,6 +10,8 @@
 A WebGPU repo you can use to get started with your own renderer.
 
 - [🔳 Codepen Example](https://codepen.io/alaingalvan/pen/GRgvLGw)
+
+- [💬 Blog Post](https://alain.xyz/blog/raw-webgpu)
 
 > Visit the [`typegen` branch](https://github.com/alaingalvan/webgpu-seed/tree/typegen) for type generation, but otherwise you should use [`@types/webgpu`](https://www.npmjs.com/package/@webgpu/types).
 
