@@ -2,11 +2,11 @@
     "name": "webgpu-seed",
     "version": "0.1.0",
     "description": "🔺 A simple hello triangle example introducing WebGPU.",
-    "main": "src/main.ts",
-    "types": "./dist/webgpu.d.ts",
+    "main": "dist/main.js",
     "scripts": {
-        "start": "npm i && npm run build",
-        "build": "tsc"
+        "start": "npm i && npm run build && npm run dev",
+        "dev": "http-server",
+        "build": "webpack --config webpack.prod.js"
     },
     "repository": {
         "type": "git",
@@ -27,12 +27,16 @@
     },
     "homepage": "https://github.com/alaingalvan/webgpu-seed#readme",
     "devDependencies": {
-        "@types/gl-matrix": "^2.4.5",
         "@types/node": "^13.1.0",
         "@webgpu/types": "0.0.19",
+        "@types/gl-matrix": "^2.4.5",
+        "http-server": "^0.12.0",
         "ts-loader": "^6.2.1",
-        "typescript": "^3.7.4",
-        "webpack": "^4.41.4"
+        "typescript": "^3.7.5",
+        "uglifyjs-webpack-plugin": "^2.2.0",
+        "webpack": "^4.41.5",
+        "webpack-cli": "^3.3.10",
+        "webpack-merge": "^4.2.2"
     },
     "dependencies": {
         "gl-matrix": "^3.1.0"

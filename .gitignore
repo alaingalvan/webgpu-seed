@@ -40,3 +40,4 @@ ts-node
 temp
 *.js
 *.map
+!webpack.*

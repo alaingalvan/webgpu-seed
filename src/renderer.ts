@@ -17,7 +17,7 @@ const colors = new Float32Array([
 // 🗄️ Index Buffer Data
 const indices = new Uint16Array([ 0, 1, 2 ]);
 
-class Renderer {
+export default class Renderer {
     canvas: HTMLCanvasElement;
 
     // ⚙️ API Data Structures
@@ -105,10 +105,10 @@ class Renderer {
                 res.arrayBuffer().then((arr) => new Uint32Array(arr))
             );
 
-        const vsmDesc: any = { code: await loadShader('triangle.vert.spv') };
+        const vsmDesc: any = { code: await loadShader('/assets/shaders/triangle.vert.spv') };
         this.vertModule = this.device.createShaderModule(vsmDesc);
 
-        const fsmDesc: any = { code: await loadShader('triangle.frag.spv') };
+        const fsmDesc: any = { code: await loadShader('/assets/shaders/triangle.frag.spv') };
         this.fragModule = this.device.createShaderModule(fsmDesc);
 
         // ⚗️ Graphics Pipeline

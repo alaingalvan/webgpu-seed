@@ -34,7 +34,7 @@ git clone https://github.com/alaingalvan/webgpu-seed
 # 💿 go inside the folder
 cd webgpu-seed
 
-# 🔨 Start building the project
+# 🔨 Start installing dependencies, building, and running at localhost:8080
 npm start
 ```
 
