@@ -85,9 +85,9 @@ export default class Renderer {
     async initializeResources() {
         // 🔺 Buffers
         let createBuffer = (arr: Float32Array | Uint16Array, usage: number) => {
-            let desc = { size: arr.byteLength, usage };
+            // 📏 Align to 4 bytes (thanks @chrimsonite)
+            let desc = { size: ((arr.byteLength + 3) & ~3), usage };
             let [ buffer, bufferMapped ] = this.device.createBufferMapped(desc);
-            ``;
             const writeArray =
                 arr instanceof Uint16Array ? new Uint16Array(bufferMapped) : new Float32Array(bufferMapped);
             writeArray.set(arr);
