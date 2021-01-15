@@ -87,9 +87,9 @@ export default class Renderer {
         let createBuffer = (arr: Float32Array | Uint16Array, usage: number) => {
             // 📏 Align to 4 bytes (thanks @chrimsonite)
             let desc = { size: ((arr.byteLength + 3) & ~3), usage };
-            let [ buffer, bufferMapped ] = this.device.createBufferMapped(desc);
+            let buffer = device.createBuffer(desc);
             const writeArray =
-                arr instanceof Uint16Array ? new Uint16Array(bufferMapped) : new Float32Array(bufferMapped);
+                arr instanceof Uint16Array ? new Uint16Array(buffer.getMappedRange()) : new Float32Array(buffer.getMappedRange());
             writeArray.set(arr);
             buffer.unmap();
             return buffer;
@@ -136,7 +136,6 @@ export default class Renderer {
         };
 
         const vertexState: GPUVertexStateDescriptor = {
-            indexFormat: 'uint16',
             vertexBuffers: [ positionBufferDesc, colorBufferDesc ]
         };
 
@@ -262,7 +261,7 @@ export default class Renderer {
         this.passEncoder.setScissorRect(0, 0, this.canvas.width, this.canvas.height);
         this.passEncoder.setVertexBuffer(0, this.positionBuffer);
         this.passEncoder.setVertexBuffer(1, this.colorBuffer);
-        this.passEncoder.setIndexBuffer(this.indexBuffer);
+        this.passEncoder.setIndexBuffer(this.indexBuffer, 'uint16');
         this.passEncoder.drawIndexed(3, 1, 0, 0, 0);
         this.passEncoder.endPass();
 
