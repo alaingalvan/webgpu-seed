@@ -1,17 +1,19 @@
-/// <reference path="../node_modules/@webgpu/types/index.d.ts" />
+/// <reference path="../node_modules/@webgpu/types/dist/index.d.ts" />
 
 // 📈 Position Vertex Buffer Data
-const positions = new Float32Array([
-    1.0, -1.0, 0.0,
-   -1.0, -1.0, 0.0,
-    0.0, 1.0, 0.0
-]);
+const positions = new Float32Array([ 1.0, -1.0, 0.0, -1.0, -1.0, 0.0, 0.0, 1.0, 0.0 ]);
 
 // 🎨 Color Vertex Buffer Data
 const colors = new Float32Array([
-    1.0, 0.0, 0.0, // 🔴
-    0.0, 1.0, 0.0, // 🟢
-    0.0, 0.0, 1.0  // 🔵
+    1.0,
+    0.0,
+    0.0, // 🔴
+    0.0,
+    1.0,
+    0.0, // 🟢
+    0.0,
+    0.0,
+    1.0 // 🔵
 ]);
 
 // 🗄️ Index Buffer Data
@@ -86,10 +88,12 @@ export default class Renderer {
         // 🔺 Buffers
         let createBuffer = (arr: Float32Array | Uint16Array, usage: number) => {
             // 📏 Align to 4 bytes (thanks @chrimsonite)
-            let desc = { size: ((arr.byteLength + 3) & ~3), usage };
-            let buffer = device.createBuffer(desc);
+            let desc = { size: (arr.byteLength + 3) & ~3, usage, mappedAtCreation: true };
+            let buffer = this.device.createBuffer(desc);
             const writeArray =
-                arr instanceof Uint16Array ? new Uint16Array(buffer.getMappedRange()) : new Float32Array(buffer.getMappedRange());
+                arr instanceof Uint16Array
+                    ? new Uint16Array(buffer.getMappedRange())
+                    : new Float32Array(buffer.getMappedRange());
             writeArray.set(arr);
             buffer.unmap();
             return buffer;
