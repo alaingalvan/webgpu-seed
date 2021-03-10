@@ -64,5 +64,5 @@ As your project becomes more complex, you'll want to separate files and organize
 [david-img]: https://david-dm.org/alaingalvan/webgpu-seed/status.svg?style=flat-square
 [david-dev-url]: https://david-dm.org/alaingalvan/webgpu-seed#info=devDependencies
 [david-dev-img]: https://david-dm.org/alaingalvan/webgpu-seed/dev-status.svg?style=flat-square
-[travis-img]: https://img.shields.io/travis/alaingalvan/webgpu-seed.svg?style=flat-square
-[travis-url]:https://travis-ci.org/alaingalvan/webgpu-seed
+[travis-img]: https://img.shields.io/travis/com/alaingalvan/webgpu-seed.svg?style=flat-square
+[travis-url]:https://www.travis-ci.com/github/alaingalvan/webgpu-seed

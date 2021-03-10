@@ -1,5 +1,3 @@
-/// <reference path="../node_modules/@webgpu/types/dist/index.d.ts" />
-
 // 📈 Position Vertex Buffer Data
 const positions = new Float32Array([ 1.0, -1.0, 0.0, -1.0, -1.0, 0.0, 0.0, 1.0, 0.0 ]);
 
@@ -74,7 +72,7 @@ export default class Renderer {
             this.device = await this.adapter.requestDevice();
 
             // 📦 Queue
-            this.queue = this.device.defaultQueue;
+            this.queue = this.device.queue;
         } catch (e) {
             console.error(e);
             return false;
@@ -121,12 +119,12 @@ export default class Renderer {
         const positionAttribDesc: GPUVertexAttributeDescriptor = {
             shaderLocation: 0, // [[attribute(0)]]
             offset: 0,
-            format: 'float3'
+            format: 'float32x3'
         };
         const colorAttribDesc: GPUVertexAttributeDescriptor = {
             shaderLocation: 1, // [[attribute(1)]]
             offset: 0,
-            format: 'float3'
+            format: 'float32x3'
         };
         const positionBufferDesc: GPUVertexBufferLayoutDescriptor = {
             attributes: [ positionAttribDesc ],
@@ -209,26 +207,18 @@ export default class Renderer {
             const swapChainDesc: GPUSwapChainDescriptor = {
                 device: this.device,
                 format: 'bgra8unorm',
-                usage: GPUTextureUsage.OUTPUT_ATTACHMENT | GPUTextureUsage.COPY_SRC
+                usage: GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.COPY_SRC
             };
             this.swapchain = context.configureSwapChain(swapChainDesc);
         }
 
-        // 🤔 Depth Backing
-        const depthSize = {
-            width: this.canvas.width,
-            height: this.canvas.height,
-            depth: 1
-        };
-
         const depthTextureDesc: GPUTextureDescriptor = {
-            size: depthSize,
-            arrayLayerCount: 1,
+            size: [this.canvas.width, this.canvas.height, 1],
             mipLevelCount: 1,
             sampleCount: 1,
             dimension: '2d',
             format: 'depth24plus-stencil8',
-            usage: GPUTextureUsage.OUTPUT_ATTACHMENT | GPUTextureUsage.COPY_SRC
+            usage: GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.COPY_SRC
         };
 
         this.depthTexture = this.device.createTexture(depthTextureDesc);
