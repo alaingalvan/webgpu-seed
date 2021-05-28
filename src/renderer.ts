@@ -1,5 +1,5 @@
 // 📈 Position Vertex Buffer Data
-const positions = new Float32Array([ 1.0, -1.0, 0.0, -1.0, -1.0, 0.0, 0.0, 1.0, 0.0 ]);
+const positions = new Float32Array([1.0, -1.0, 0.0, -1.0, -1.0, 0.0, 0.0, 1.0, 0.0]);
 
 // 🎨 Color Vertex Buffer Data
 const colors = new Float32Array([
@@ -15,7 +15,7 @@ const colors = new Float32Array([
 ]);
 
 // 🗄️ Index Buffer Data
-const indices = new Uint16Array([ 0, 1, 2 ]);
+const indices = new Uint16Array([0, 1, 2]);
 
 export default class Renderer {
     canvas: HTMLCanvasElement;
@@ -116,33 +116,29 @@ export default class Renderer {
         // ⚗️ Graphics Pipeline
 
         // 🔣 Input Assembly
-        const positionAttribDesc: GPUVertexAttributeDescriptor = {
+        const positionAttribDesc: GPUVertexAttribute = {
             shaderLocation: 0, // [[attribute(0)]]
             offset: 0,
             format: 'float32x3'
         };
-        const colorAttribDesc: GPUVertexAttributeDescriptor = {
+        const colorAttribDesc: GPUVertexAttribute = {
             shaderLocation: 1, // [[attribute(1)]]
             offset: 0,
             format: 'float32x3'
         };
-        const positionBufferDesc: GPUVertexBufferLayoutDescriptor = {
-            attributes: [ positionAttribDesc ],
+        const positionBufferDesc: GPUVertexBufferLayout = {
+            attributes: [positionAttribDesc],
             arrayStride: 4 * 3, // sizeof(float) * 3
             stepMode: 'vertex'
         };
-        const colorBufferDesc: GPUVertexBufferLayoutDescriptor = {
-            attributes: [ colorAttribDesc ],
+        const colorBufferDesc: GPUVertexBufferLayout = {
+            attributes: [colorAttribDesc],
             arrayStride: 4 * 3, // sizeof(float) * 3
             stepMode: 'vertex'
-        };
-
-        const vertexState: GPUVertexStateDescriptor = {
-            vertexBuffers: [ positionBufferDesc, colorBufferDesc ]
         };
 
         // 🌑 Depth
-        const depthStencilState: GPUDepthStencilStateDescriptor = {
+        const depthStencil: GPUDepthStencilState = {
             depthWriteEnabled: true,
             depthCompare: 'less',
             format: 'depth24plus-stencil8'
@@ -153,48 +149,50 @@ export default class Renderer {
         const layout = this.device.createPipelineLayout(pipelineLayoutDesc);
 
         // 🎭 Shader Stages
-        const vertexStage = {
+        const vertex: GPUVertexState = {
             module: this.vertModule,
-            entryPoint: 'main'
-        };
-        const fragmentStage = {
-            module: this.fragModule,
-            entryPoint: 'main'
+            entryPoint: 'main',
+            buffers: [positionBufferDesc, colorBufferDesc]
         };
 
         // 🌀 Color/Blend State
-        const colorState: GPUColorStateDescriptor = {
+        const colorState: GPUColorTargetState = {
             format: 'bgra8unorm',
-            alphaBlend: {
-                srcFactor: 'src-alpha',
-                dstFactor: 'one-minus-src-alpha',
-                operation: 'add'
-            },
-            colorBlend: {
-                srcFactor: 'src-alpha',
-                dstFactor: 'one-minus-src-alpha',
-                operation: 'add'
+            blend: {
+                alpha: {
+                    srcFactor: 'src-alpha',
+                    dstFactor: 'one-minus-src-alpha',
+                    operation: 'add'
+                },
+                color: {
+                    srcFactor: 'src-alpha',
+                    dstFactor: 'one-minus-src-alpha',
+                    operation: 'add'
+                },
             },
             writeMask: GPUColorWrite.ALL
         };
 
-        // 🟨 Rasterization
-        const rasterizationState: GPURasterizationStateDescriptor = {
-            frontFace: 'cw',
-            cullMode: 'none'
+        const fragment: GPUFragmentState = {
+            module: this.fragModule,
+            entryPoint: 'main',
+            targets: [colorState],
         };
 
-        const pipelineDesc: GPURenderPipelineDescriptor = {
+        // 🟨 Rasterization
+        const primitive: GPUPrimitiveState = {
+            frontFace: 'cw',
+            cullMode: 'none', topology: 'triangle-list'
+        };
+
+        const pipelineDesc: GPURenderPipelineDescriptorNew = {
             layout,
 
-            vertexStage,
-            fragmentStage,
+            vertex,
+            fragment,
 
-            primitiveTopology: 'triangle-list',
-            colorStates: [ colorState ],
-            depthStencilState,
-            vertexState,
-            rasterizationState
+            primitive,
+            depthStencil,
         };
         this.pipeline = this.device.createRenderPipeline(pipelineDesc);
     }
@@ -227,14 +225,14 @@ export default class Renderer {
 
     // ✍️ Write commands to send to the GPU
     encodeCommands() {
-        let colorAttachment: GPURenderPassColorAttachmentDescriptor = {
-            attachment: this.colorTextureView,
+        let colorAttachment: GPURenderPassColorAttachment = {
+            view: this.colorTextureView,
             loadValue: { r: 0, g: 0, b: 0, a: 1 },
             storeOp: 'store'
         };
 
-        const depthAttachment: GPURenderPassDepthStencilAttachmentDescriptor = {
-            attachment: this.depthTextureView,
+        const depthAttachment: GPURenderPassDepthStencilAttachment = {
+            view: this.depthTextureView,
             depthLoadValue: 1,
             depthStoreOp: 'store',
             stencilLoadValue: 'load',
@@ -242,7 +240,7 @@ export default class Renderer {
         };
 
         const renderPassDesc: GPURenderPassDescriptor = {
-            colorAttachments: [ colorAttachment ],
+            colorAttachments: [colorAttachment],
             depthStencilAttachment: depthAttachment
         };
 
@@ -259,7 +257,7 @@ export default class Renderer {
         this.passEncoder.drawIndexed(3, 1, 0, 0, 0);
         this.passEncoder.endPass();
 
-        this.queue.submit([ this.commandEncoder.finish() ]);
+        this.queue.submit([this.commandEncoder.finish()]);
     }
 
     render = () => {
