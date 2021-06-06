@@ -1,5 +1,7 @@
 // 📈 Position Vertex Buffer Data
-const positions = new Float32Array([1.0, -1.0, 0.0, -1.0, -1.0, 0.0, 0.0, 1.0, 0.0]);
+const positions = new Float32Array([
+    1.0, -1.0, 0.0, -1.0, -1.0, 0.0, 0.0, 1.0, 0.0
+]);
 
 // 🎨 Color Vertex Buffer Data
 const colors = new Float32Array([
@@ -86,7 +88,11 @@ export default class Renderer {
         // 🔺 Buffers
         let createBuffer = (arr: Float32Array | Uint16Array, usage: number) => {
             // 📏 Align to 4 bytes (thanks @chrimsonite)
-            let desc = { size: (arr.byteLength + 3) & ~3, usage, mappedAtCreation: true };
+            let desc = {
+                size: (arr.byteLength + 3) & ~3,
+                usage,
+                mappedAtCreation: true
+            };
             let buffer = this.device.createBuffer(desc);
             const writeArray =
                 arr instanceof Uint16Array
@@ -103,14 +109,21 @@ export default class Renderer {
 
         // 🖍️ Shaders
         let loadShader = (shaderPath: string) =>
-            fetch(new Request(shaderPath), { method: 'GET', mode: 'cors' }).then((res) =>
+            fetch(new Request(shaderPath), {
+                method: 'GET',
+                mode: 'cors'
+            }).then((res) =>
                 res.arrayBuffer().then((arr) => new Uint32Array(arr))
             );
 
-        const vsmDesc: any = { code: await loadShader('/assets/shaders/triangle.vert.spv') };
+        const vsmDesc: any = {
+            code: await loadShader('/assets/shaders/triangle.vert.spv')
+        };
         this.vertModule = this.device.createShaderModule(vsmDesc);
 
-        const fsmDesc: any = { code: await loadShader('/assets/shaders/triangle.frag.spv') };
+        const fsmDesc: any = {
+            code: await loadShader('/assets/shaders/triangle.frag.spv')
+        };
         this.fragModule = this.device.createShaderModule(fsmDesc);
 
         // ⚗️ Graphics Pipeline
@@ -168,7 +181,7 @@ export default class Renderer {
                     srcFactor: 'src-alpha',
                     dstFactor: 'one-minus-src-alpha',
                     operation: 'add'
-                },
+                }
             },
             writeMask: GPUColorWrite.ALL
         };
@@ -176,13 +189,14 @@ export default class Renderer {
         const fragment: GPUFragmentState = {
             module: this.fragModule,
             entryPoint: 'main',
-            targets: [colorState],
+            targets: [colorState]
         };
 
         // 🟨 Rasterization
         const primitive: GPUPrimitiveState = {
             frontFace: 'cw',
-            cullMode: 'none', topology: 'triangle-list'
+            cullMode: 'none',
+            topology: 'triangle-list'
         };
 
         const pipelineDesc: GPURenderPipelineDescriptorNew = {
@@ -192,7 +206,7 @@ export default class Renderer {
             fragment,
 
             primitive,
-            depthStencil,
+            depthStencil
         };
         this.pipeline = this.device.createRenderPipeline(pipelineDesc);
     }
@@ -201,11 +215,14 @@ export default class Renderer {
     resizeBackings() {
         // ⛓️ Swapchain
         if (!this.swapchain) {
-            const context: GPUCanvasContext = this.canvas.getContext('gpupresent') as any;
+            const context: GPUCanvasContext = this.canvas.getContext(
+                'gpupresent'
+            ) as any;
             const swapChainDesc: GPUSwapChainDescriptor = {
                 device: this.device,
                 format: 'bgra8unorm',
-                usage: GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.COPY_SRC
+                usage:
+                    GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.COPY_SRC
             };
             this.swapchain = context.configureSwapChain(swapChainDesc);
         }
@@ -249,8 +266,20 @@ export default class Renderer {
         // 🖌️ Encode drawing commands
         this.passEncoder = this.commandEncoder.beginRenderPass(renderPassDesc);
         this.passEncoder.setPipeline(this.pipeline);
-        this.passEncoder.setViewport(0, 0, this.canvas.width, this.canvas.height, 0, 1);
-        this.passEncoder.setScissorRect(0, 0, this.canvas.width, this.canvas.height);
+        this.passEncoder.setViewport(
+            0,
+            0,
+            this.canvas.width,
+            this.canvas.height,
+            0,
+            1
+        );
+        this.passEncoder.setScissorRect(
+            0,
+            0,
+            this.canvas.width,
+            this.canvas.height
+        );
         this.passEncoder.setVertexBuffer(0, this.positionBuffer);
         this.passEncoder.setVertexBuffer(1, this.colorBuffer);
         this.passEncoder.setIndexBuffer(this.indexBuffer, 'uint16');
