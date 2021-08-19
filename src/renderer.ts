@@ -1,23 +1,19 @@
 // 📈 Position Vertex Buffer Data
 const positions = new Float32Array([
-    1.0, -1.0, 0.0, -1.0, -1.0, 0.0, 0.0, 1.0, 0.0
+    1.0, -1.0, 0.0,
+   -1.0, -1.0, 0.0,
+    0.0,  1.0, 0.0
 ]);
 
 // 🎨 Color Vertex Buffer Data
 const colors = new Float32Array([
-    1.0,
-    0.0,
-    0.0, // 🔴
-    0.0,
-    1.0,
-    0.0, // 🟢
-    0.0,
-    0.0,
-    1.0 // 🔵
+    1.0, 0.0, 0.0, // 🔴
+    0.0, 1.0, 0.0, // 🟢
+    0.0, 0.0, 1.0  // 🔵
 ]);
 
-// 🗄️ Index Buffer Data
-const indices = new Uint16Array([0, 1, 2]);
+// 📇 Index Buffer Data
+const indices = new Uint16Array([ 0, 1, 2 ]);
 
 export default class Renderer {
     canvas: HTMLCanvasElement;
