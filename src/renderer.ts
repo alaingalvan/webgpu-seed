@@ -28,7 +28,7 @@ export default class Renderer {
     queue: GPUQueue;
 
     // 🎞️ Frame Backings
-    swapchain: GPUSwapChain;
+    context: GPUCanvasContext;
     colorTexture: GPUTexture;
     colorTextureView: GPUTextureView;
     depthTexture: GPUTexture;
@@ -214,9 +214,9 @@ export default class Renderer {
     // ↙️ Resize swapchain, frame buffer attachments
     resizeBackings() {
         // ⛓️ Swapchain
-        if (!this.swapchain) {
-            const context: GPUCanvasContext = this.canvas.getContext(
-                'gpupresent'
+        if (!this.context) {
+            this.context = this.canvas.getContext(
+                'webgpu'
             ) as any;
             const swapChainDesc: GPUSwapChainDescriptor = {
                 device: this.device,
@@ -224,7 +224,7 @@ export default class Renderer {
                 usage:
                     GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.COPY_SRC
             };
-            this.swapchain = context.configureSwapChain(swapChainDesc);
+            this.context.configure(swapChainDesc);
         }
 
         const depthTextureDesc: GPUTextureDescriptor = {
@@ -291,7 +291,7 @@ export default class Renderer {
 
     render = () => {
         // ⏭ Acquire next image from swapchain
-        this.colorTexture = this.swapchain.getCurrentTexture();
+        this.colorTexture = this.context.getCurrentTexture();
         this.colorTextureView = this.colorTexture.createView();
 
         // 📦 Write and submit commands to queue
