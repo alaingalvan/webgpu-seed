@@ -63,7 +63,7 @@ if (!argv.reduce((prev, cur) => prev || cur === '--watch', false)) {
             let statsJson = stats.toJson();
             console.log('❌' + ' · Error · ' + 'webgpu-seed failed to compile:');
             for (let error of statsJson.errors) {
-                console.log(error);
+                console.log(error.message);
             }
             return;
         }
@@ -84,7 +84,7 @@ if (!argv.reduce((prev, cur) => prev || cur === '--watch', false)) {
             let statsJson = stats.toJson();
             console.log('❌' + ' · Error · ' + 'webgpu-seed failed to compile:');
             for (let error of statsJson.errors) {
-                console.log(error);
+                console.log(error.message);
             }
             console.log('\n👀  · Watching for changes... · \n');
             return;

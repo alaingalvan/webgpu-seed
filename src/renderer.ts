@@ -215,9 +215,7 @@ export default class Renderer {
     resizeBackings() {
         // ⛓️ Swapchain
         if (!this.context) {
-            this.context = this.canvas.getContext(
-                'webgpu'
-            ) as any;
+            this.context = this.canvas.getContext('webgpu');
             const swapChainDesc: GPUSwapChainDescriptor = {
                 device: this.device,
                 format: 'bgra8unorm',
