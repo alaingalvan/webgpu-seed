@@ -113,16 +113,18 @@ export default class Renderer {
                 method: 'GET',
                 mode: 'cors'
             }).then((res) =>
-                res.arrayBuffer().then((arr) => new Uint32Array(arr))
+                res.text()
+                // For SPIR-V
+                //res.arrayBuffer().then((arr) => new Uint32Array(arr))
             );
 
         const vsmDesc: any = {
-            code: await loadShader('/assets/shaders/triangle.vert.spv')
+            code: await loadShader('/assets/shaders/triangle.vert.wgsl')
         };
         this.vertModule = this.device.createShaderModule(vsmDesc);
 
         const fsmDesc: any = {
-            code: await loadShader('/assets/shaders/triangle.frag.spv')
+            code: await loadShader('/assets/shaders/triangle.frag.wgsl')
         };
         this.fragModule = this.device.createShaderModule(fsmDesc);
 
