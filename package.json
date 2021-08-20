@@ -28,7 +28,7 @@
     "homepage": "https://github.com/alaingalvan/webgpu-seed#readme",
     "devDependencies": {
         "@types/node": "^16.6.x",
-        "@webgpu/types": "^0.1.x",
+        "@webgpu/types": "^0.1.6",
         "clean-webpack-plugin": "^3.0.x",
         "cross-env": "^7.0.x",
         "http-server": "^13.0.x",

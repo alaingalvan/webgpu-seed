@@ -110,8 +110,6 @@ export default class Renderer {
                 mode: 'cors'
             }).then((res) =>
                 res.text()
-                // For SPIR-V
-                //res.arrayBuffer().then((arr) => new Uint32Array(arr))
             );
 
         const vsmDesc: any = {
@@ -197,7 +195,7 @@ export default class Renderer {
             topology: 'triangle-list'
         };
 
-        const pipelineDesc: GPURenderPipelineDescriptorNew = {
+        const pipelineDesc: GPURenderPipelineDescriptor = {
             layout,
 
             vertex,
@@ -214,19 +212,17 @@ export default class Renderer {
         // ⛓️ Swapchain
         if (!this.context) {
             this.context = this.canvas.getContext('webgpu');
-            const swapChainDesc: GPUSwapChainDescriptor = {
+            const canvasConfig: GPUCanvasConfiguration = {
                 device: this.device,
                 format: 'bgra8unorm',
                 usage:
                     GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.COPY_SRC
             };
-            this.context.configure(swapChainDesc);
+            this.context.configure(canvasConfig);
         }
 
         const depthTextureDesc: GPUTextureDescriptor = {
             size: [this.canvas.width, this.canvas.height, 1],
-            mipLevelCount: 1,
-            sampleCount: 1,
             dimension: '2d',
             format: 'depth24plus-stencil8',
             usage: GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.COPY_SRC
@@ -279,14 +275,14 @@ export default class Renderer {
         this.passEncoder.setVertexBuffer(0, this.positionBuffer);
         this.passEncoder.setVertexBuffer(1, this.colorBuffer);
         this.passEncoder.setIndexBuffer(this.indexBuffer, 'uint16');
-        this.passEncoder.drawIndexed(3, 1, 0, 0, 0);
+        this.passEncoder.drawIndexed(3, 1);
         this.passEncoder.endPass();
 
         this.queue.submit([this.commandEncoder.finish()]);
     }
 
     render = () => {
-        // ⏭ Acquire next image from swapchain
+        // ⏭ Acquire next image from context
         this.colorTexture = this.context.getCurrentTexture();
         this.colorTextureView = this.colorTexture.createView();
 
