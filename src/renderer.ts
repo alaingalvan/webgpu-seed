@@ -82,7 +82,7 @@ export default class Renderer {
     // 🍱 Initialize resources to render triangle (buffers, shaders, pipeline)
     async initializeResources() {
         // 🔺 Buffers
-        let createBuffer = (arr: Float32Array | Uint16Array, usage: number) => {
+        const createBuffer = (arr: Float32Array | Uint16Array, usage: number) => {
             // 📏 Align to 4 bytes (thanks @chrimsonite)
             let desc = {
                 size: (arr.byteLength + 3) & ~3,
@@ -112,12 +112,12 @@ export default class Renderer {
                 res.text()
             );
 
-        const vsmDesc: any = {
+        const vsmDesc = {
             code: await loadShader('/assets/shaders/triangle.vert.wgsl')
         };
         this.vertModule = this.device.createShaderModule(vsmDesc);
 
-        const fsmDesc: any = {
+        const fsmDesc = {
             code: await loadShader('/assets/shaders/triangle.frag.wgsl')
         };
         this.fragModule = this.device.createShaderModule(fsmDesc);
@@ -126,12 +126,12 @@ export default class Renderer {
 
         // 🔣 Input Assembly
         const positionAttribDesc: GPUVertexAttribute = {
-            shaderLocation: 0, // [[attribute(0)]]
+            shaderLocation: 0, // [[location(0)]]
             offset: 0,
             format: 'float32x3'
         };
         const colorAttribDesc: GPUVertexAttribute = {
-            shaderLocation: 1, // [[attribute(1)]]
+            shaderLocation: 1, // [[location(1)]]
             offset: 0,
             format: 'float32x3'
         };
@@ -224,7 +224,7 @@ export default class Renderer {
         const depthTextureDesc: GPUTextureDescriptor = {
             size: [this.canvas.width, this.canvas.height, 1],
             dimension: '2d',
-            format: 'depth24plus-stencil8',
+            format: 'depth24plus-stencil8', 
             usage: GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.COPY_SRC
         };
 
