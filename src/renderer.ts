@@ -166,20 +166,7 @@ export default class Renderer {
 
         // 🌀 Color/Blend State
         const colorState: GPUColorTargetState = {
-            format: 'bgra8unorm',
-            blend: {
-                alpha: {
-                    srcFactor: 'src-alpha',
-                    dstFactor: 'one-minus-src-alpha',
-                    operation: 'add'
-                },
-                color: {
-                    srcFactor: 'src-alpha',
-                    dstFactor: 'one-minus-src-alpha',
-                    operation: 'add'
-                }
-            },
-            writeMask: GPUColorWrite.ALL
+            format: 'bgra8unorm'
         };
 
         const fragment: GPUFragmentState = {
