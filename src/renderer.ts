@@ -1,10 +1,12 @@
+import vertShaderCode from './shaders/triangle.vert.wgsl';
+import fragShaderCode from './shaders/triangle.frag.wgsl';
+
 // 📈 Position Vertex Buffer Data
 const positions = new Float32Array([
     1.0, -1.0, 0.0,
    -1.0, -1.0, 0.0,
     0.0,  1.0, 0.0
 ]);
-
 // 🎨 Color Vertex Buffer Data
 const colors = new Float32Array([
     1.0, 0.0, 0.0, // 🔴
@@ -82,7 +84,10 @@ export default class Renderer {
     // 🍱 Initialize resources to render triangle (buffers, shaders, pipeline)
     async initializeResources() {
         // 🔺 Buffers
-        const createBuffer = (arr: Float32Array | Uint16Array, usage: number) => {
+        const createBuffer = (
+            arr: Float32Array | Uint16Array,
+            usage: number
+        ) => {
             // 📏 Align to 4 bytes (thanks @chrimsonite)
             let desc = {
                 size: (arr.byteLength + 3) & ~3,
@@ -104,21 +109,13 @@ export default class Renderer {
         this.indexBuffer = createBuffer(indices, GPUBufferUsage.INDEX);
 
         // 🖍️ Shaders
-        let loadShader = (shaderPath: string) =>
-            fetch(new Request(shaderPath), {
-                method: 'GET',
-                mode: 'cors'
-            }).then((res) =>
-                res.text()
-            );
-
         const vsmDesc = {
-            code: await loadShader('/assets/shaders/triangle.vert.wgsl')
+            code: vertShaderCode
         };
         this.vertModule = this.device.createShaderModule(vsmDesc);
 
         const fsmDesc = {
-            code: await loadShader('/assets/shaders/triangle.frag.wgsl')
+            code: fragShaderCode
         };
         this.fragModule = this.device.createShaderModule(fsmDesc);
 
@@ -211,7 +208,7 @@ export default class Renderer {
         const depthTextureDesc: GPUTextureDescriptor = {
             size: [this.canvas.width, this.canvas.height, 1],
             dimension: '2d',
-            format: 'depth24plus-stencil8', 
+            format: 'depth24plus-stencil8',
             usage: GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.COPY_SRC
         };
 

@@ -5,7 +5,8 @@ import { argv } from 'process';
 
 let env = process.env['NODE_ENV'];
 let isProduction =
-    (env && env.match(/production/)) || argv.reduce((prev, cur) => prev || cur === '--production', false);
+    (env && env.match(/production/)) ||
+    argv.reduce((prev, cur) => prev || cur === '--production', false);
 
 let config: webpack.Configuration = {
     context: path.join(__dirname, 'src'),
@@ -17,9 +18,8 @@ let config: webpack.Configuration = {
         path: path.resolve(__dirname, 'dist')
     },
     resolve: {
-        extensions: [ '.ts', '.tsx', 'js' ],
-        modules: [ path.resolve(__dirname, 'src'), 'node_modules' ],
-
+        extensions: ['.ts', '.tsx', 'js'],
+        modules: [path.resolve(__dirname, 'src'), 'node_modules']
     },
     module: {
         rules: [
@@ -33,6 +33,10 @@ let config: webpack.Configuration = {
                         isolatedModules: true
                     }
                 }
+            },
+            {
+                test: /\.wgsl/,
+                type: 'asset/source'
             }
         ]
     },
@@ -41,7 +45,9 @@ let config: webpack.Configuration = {
         new CleanWebpackPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
-                NODE_ENV: JSON.stringify(isProduction ? 'production' : 'development')
+                NODE_ENV: JSON.stringify(
+                    isProduction ? 'production' : 'development'
+                )
             }
         })
     ],
@@ -61,7 +67,9 @@ if (!argv.reduce((prev, cur) => prev || cur === '--watch', false)) {
 
         if (stats.hasErrors()) {
             let statsJson = stats.toJson();
-            console.log('❌' + ' · Error · ' + 'webgpu-seed failed to compile:');
+            console.log(
+                '❌' + ' · Error · ' + 'webgpu-seed failed to compile:'
+            );
             for (let error of statsJson.errors) {
                 console.log(error.message);
             }
@@ -82,7 +90,9 @@ if (!argv.reduce((prev, cur) => prev || cur === '--watch', false)) {
 
         if (stats.hasErrors()) {
             let statsJson = stats.toJson();
-            console.log('❌' + ' · Error · ' + 'webgpu-seed failed to compile:');
+            console.log(
+                '❌' + ' · Error · ' + 'webgpu-seed failed to compile:'
+            );
             for (let error of statsJson.errors) {
                 console.log(error.message);
             }

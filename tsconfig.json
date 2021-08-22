@@ -29,6 +29,7 @@
     "allowSyntheticDefaultImports": true
   },
   "include": [
+    "definitions.d.ts",
     "src/**/*",
     "node_modules/@webgpu/types/**/*"
   ],
