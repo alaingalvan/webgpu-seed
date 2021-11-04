@@ -4,8 +4,6 @@
 
 [![License][license-img]][license-url]
 [![Unit Tests][travis-img]][travis-url]
-[![Dependency Status][david-img]][david-url]
-[![devDependency Status][david-dev-img]][david-dev-url]
 
 A WebGPU repo you can use to get started with your own renderer.
 
@@ -58,9 +56,5 @@ As your project becomes more complex, you'll want to separate files and organize
 
 [license-img]: https://img.shields.io/:license-unlicense-blue.svg?style=flat-square
 [license-url]: https://unlicense.org/
-[david-url]: https://david-dm.org/alaingalvan/webgpu-seed
-[david-img]: https://david-dm.org/alaingalvan/webgpu-seed/status.svg?style=flat-square
-[david-dev-url]: https://david-dm.org/alaingalvan/webgpu-seed#info=devDependencies
-[david-dev-img]: https://david-dm.org/alaingalvan/webgpu-seed/dev-status.svg?style=flat-square
 [travis-img]: https://img.shields.io/travis/com/alaingalvan/webgpu-seed.svg?style=flat-square
 [travis-url]:https://www.travis-ci.com/github/alaingalvan/webgpu-seed
