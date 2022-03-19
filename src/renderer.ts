@@ -220,15 +220,17 @@ export default class Renderer {
     encodeCommands() {
         let colorAttachment: GPURenderPassColorAttachment = {
             view: this.colorTextureView,
-            loadValue: { r: 0, g: 0, b: 0, a: 1 },
+            clearValue: { r: 0, g: 0, b: 0, a: 1 },
+            loadOp: 'clear',
             storeOp: 'store'
         };
 
         const depthAttachment: GPURenderPassDepthStencilAttachment = {
             view: this.depthTextureView,
-            depthLoadValue: 1,
+            depthClearValue: 1,
+            depthLoadOp: 'clear',
             depthStoreOp: 'store',
-            stencilLoadValue: 'load',
+            stencilLoadOp: 'clear',
             stencilStoreOp: 'store'
         };
 
@@ -260,7 +262,7 @@ export default class Renderer {
         this.passEncoder.setVertexBuffer(1, this.colorBuffer);
         this.passEncoder.setIndexBuffer(this.indexBuffer, 'uint16');
         this.passEncoder.drawIndexed(3, 1);
-        this.passEncoder.endPass();
+        this.passEncoder.end();
 
         this.queue.submit([this.commandEncoder.finish()]);
     }
