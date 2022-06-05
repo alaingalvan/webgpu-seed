@@ -206,7 +206,7 @@ export default class Renderer {
                 usage:
                     GPUTextureUsage.RENDER_ATTACHMENT |
                     GPUTextureUsage.COPY_SRC,
-                compositingAlphaMode: 'opaque'
+                    alphaMode: 'opaque'
             };
             this.context.configure(canvasConfig);
         }
