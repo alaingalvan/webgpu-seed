@@ -3,19 +3,23 @@ import fragShaderCode from './shaders/triangle.frag.wgsl';
 
 // 📈 Position Vertex Buffer Data
 const positions = new Float32Array([
-    1.0, -1.0, 0.0,
-   -1.0, -1.0, 0.0,
-    0.0,  1.0, 0.0
+    1.0, -1.0, 0.0, -1.0, -1.0, 0.0, 0.0, 1.0, 0.0
 ]);
 // 🎨 Color Vertex Buffer Data
 const colors = new Float32Array([
-    1.0, 0.0, 0.0, // 🔴
-    0.0, 1.0, 0.0, // 🟢
-    0.0, 0.0, 1.0  // 🔵
+    1.0,
+    0.0,
+    0.0, // 🔴
+    0.0,
+    1.0,
+    0.0, // 🟢
+    0.0,
+    0.0,
+    1.0 // 🔵
 ]);
 
 // 📇 Index Buffer Data
-const indices = new Uint16Array([ 0, 1, 2 ]);
+const indices = new Uint16Array([0, 1, 2]);
 
 export default class Renderer {
     canvas: HTMLCanvasElement;
@@ -200,7 +204,9 @@ export default class Renderer {
                 device: this.device,
                 format: 'bgra8unorm',
                 usage:
-                    GPUTextureUsage.RENDER_ATTACHMENT | GPUTextureUsage.COPY_SRC
+                    GPUTextureUsage.RENDER_ATTACHMENT |
+                    GPUTextureUsage.COPY_SRC,
+                compositingAlphaMode: 'opaque'
             };
             this.context.configure(canvasConfig);
         }
@@ -230,6 +236,7 @@ export default class Renderer {
             depthClearValue: 1,
             depthLoadOp: 'clear',
             depthStoreOp: 'store',
+            stencilClearValue: 0,
             stencilLoadOp: 'clear',
             stencilStoreOp: 'store'
         };
