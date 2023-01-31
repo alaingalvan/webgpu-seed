@@ -27,15 +27,15 @@
     },
     "homepage": "https://github.com/alaingalvan/webgpu-seed#readme",
     "devDependencies": {
-        "@types/node": "^17.0.x",
-        "@webgpu/types": "^0.1.18",
+        "@types/node": "^18.11.x",
+        "@webgpu/types": "^0.1.26",
         "clean-webpack-plugin": "^4.0.x",
         "cross-env": "^7.0.x",
         "http-server": "^14.1.x",
-        "ts-loader": "^9.3.x",
-        "ts-node": "^10.8.x",
-        "typescript": "^4.7.x",
-        "webpack": "^5.73.x"
+        "ts-loader": "^9.4.x",
+        "ts-node": "^10.9.x",
+        "typescript": "^4.9.x",
+        "webpack": "^5.75.x"
     },
     "dependencies": {
         "gl-matrix": "^3.4.3"
